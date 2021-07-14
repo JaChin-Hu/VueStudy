@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+    <style>
+        .class1 {
+            background: #444;
+            color: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <p><button @click="qh">切换显示</button>example: <span v-if="seen">现在你看到我了</span></p>
+
+    <p v-if="Math.random() > 0.9">随机数大于0.9</p>
+    <p v-else-if="Math.random() < 0.1">随机数小于0.1</p>
+    <p v-else>随机数大于0.1小于0.9</p>
+
+    <p><button @click="qh2">切换显示</button>example: <span v-show="ok">现在你看到我了</span></p>
+</div>
+
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                seen: true,
+                ok: true,
+            }
+        },
+        methods: {
+            qh(){
+                this.seen = !this.seen
+            },
+            qh2(){
+                this.ok = !this.ok
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

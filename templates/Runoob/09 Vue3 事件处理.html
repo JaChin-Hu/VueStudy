@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <button @click="counter+=1">增加</button>
+    <button @click="counter-=1">减少</button>
+    --><span>这个按钮被点击了 {{ counter }} 次。</span><br>
+
+    <p>
+        <button @click="greet">点我执行greet方法</button>
+    </p>
+
+    <p>
+        <button @click="say('hi')">Say hi</button>
+        <button @click="say('what')">Say what</button>
+    </p>
+
+    <p>
+        <!-- 这两个 one() 和 two() 将执行按钮点击事件 -->
+        <button @click="one($event), two($event)">
+            点我
+        </button>
+    </p>
+
+    <!-- 阻止单击事件冒泡 -->
+    <a v-on:click.stop="doThis"></a>
+    <!-- 提交事件不再重载页面 -->
+    <form v-on:submit.prevent="onSubmit"></form>
+    <!-- 修饰符可以串联  -->
+    <a v-on:click.stop.prevent="doThat"></a>
+    <!-- 只有修饰符 -->
+    <form v-on:submit.prevent></form>
+    <!-- 添加事件侦听器时使用事件捕获模式 -->
+    <div v-on:click.capture="doThis">...</div>
+    <!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+    <div v-on:click.self="doThat">...</div>
+
+    <!-- click 事件只能点击一次，2.1.4版本新增 -->
+    <a v-on:click.once="doThis"></a>
+</div>
+
+
+<script>
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                counter: 0,
+                name: 'Runoob',
+            }
+        },
+        methods: {
+            greet(event) {
+                // `methods` 内部的 `this` 指向当前活动实例
+                alert('Hello ' + this.name + '!')
+                // `event` 是原生 DOM event
+                if (event) {
+                    alert(event.target.tagName)
+                }
+            },
+            say(message) {
+                alert(message)
+            },
+            one(event) {
+                alert("第一个事件处理器逻辑...")
+            },
+            two(event) {
+                alert("第二个事件处理器逻辑...")
+            }
+        }
+    }).mount('#app')
+
+</script>
+</body>
+</html>

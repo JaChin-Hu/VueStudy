@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+</head>
+<body>
+<div id="hello-vue" class="demo">
+    {{ message }}
+</div>
+<div id="app" class="demo"></div>
+
+<script>
+    const HelloVueApp = {
+        data() {
+            return {
+                message: 'Hello Vue!!'
+            }
+        }
+    }
+    Vue.createApp(HelloVueApp).mount('#hello-vue')
+
+
+    const app = Vue.createApp({
+        data() {
+            return { count: 4 }
+        },
+        methods: {
+            increment() {
+                // `this` 指向该组件实例
+                this.count++
+            }
+        }
+    })
+
+    const vm = app.mount('#app')
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            msg: "sss"
+        }
+    })
+
+    document.write(vm.count) // => 4
+    document.write("<br>")
+    vm.increment()
+
+    document.write(vm.count) // => 5
+</script>
+
+</body>
+</html>

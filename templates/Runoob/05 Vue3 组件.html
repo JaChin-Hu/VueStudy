@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <runoob></runoob><br>
+    <button-counter></button-counter><br>
+    <runoob-a></runoob-a><hr>
+
+    <div>
+        <site-name title="Google"></site-name>
+        <site-name title="Runoob"></site-name>
+        <site-name title="Taobao"></site-name>
+    </div>
+
+    <div>
+        <site-info
+                v-for="site in sites"
+                :id="site.id"
+                :title="site.title"
+        ></site-info>
+    </div>
+
+</div>
+
+
+<script>
+    let runoobA = {
+        template: `<span style="color: teal">自定义局部组件!</span>`
+    }
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                sites: [
+                    { id: 1, title: 'Google' },
+                    { id: 2, title: 'Runoob' },
+                    { id: 3, title: 'Taobao' }
+                ]
+            }
+        },
+        components: {
+            'runoob-a': runoobA
+        }
+    })
+
+    app.component('runoob',{
+        template: '<h1>自定义组件!</h1>'
+    })
+    app.component('button-counter',{
+        data() {
+            return {
+                count: 0,
+            }
+        },
+        template: `<button @click="count++">点了{{ count }}次</button>`
+    })
+    app.component('site-name',{
+        props: ['title'],
+        template: `<span style="color: aquamarine">{{title}}</span><br>`
+    })
+    app.component('site-info', {
+        props: ['id','title'],
+        template: `<span style="color: bisque">{{ id }} - {{ title }}</span><br>`
+    })
+
+    app.mount('#app')
+</script>
+</body>
+</html>

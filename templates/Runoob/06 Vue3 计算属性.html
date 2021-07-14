@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <p>原始字符串: {{ message }}</p>
+    <p>计算后反转字符串: {{ reversedMessage }}</p>
+    <p><a :href="url">{{name}}</a></p>
+</div>
+
+
+<script>
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'RUNOOB!!',
+                name: 'Google',
+                url: 'https://www.google.com'
+            }
+        },
+        computed: {
+            reversedMessage: function () {
+                // `this` 指向 vm 实例
+                return this.message.split('').reverse().join('')
+            },
+            site: {
+                get: function (){
+                    return this.name + ' ' + this.url
+                },
+                set: function (newValue) {
+                    let names = newValue.split(' ')
+                    this.name = names[0]
+                    this.url = names[names.length - 1]
+                }
+            }
+        }
+    }).mount('#app')
+
+    document.write('name: ' + app.name);
+    document.write('<br>');
+    document.write('url: ' + app.url);
+    document.write('<br>------ 更新数据 ------<br>');
+    // 调用 setter， vm.name 和 vm.url 也会被对应更新
+    app.site = '菜鸟教程 https://www.runoob.com';
+    document.write('name: ' + app.name);
+    document.write('<br>');
+    document.write('url: ' + app.url);
+</script>
+</body>
+</html>

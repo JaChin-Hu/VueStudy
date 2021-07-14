@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/lib/vue/vue3.1.1.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <template v-for="(item, index) in items">
+            <li>{{index}}--->{{ item.text }}</li>
+        </template>
+        <template v-for="(value, key) in items">
+            <li>{{key}}：{{ value }}</li>
+        </template>
+        <template v-for="(value, key, index) in items">
+            <li>{{index}}.{{key}}：{{ value }}</li>
+        </template>
+
+        <li v-for="i in 3">{{i}}</li>
+        <li v-for="n in evenNumbers">{{n}}</li>
+    </ul>
+
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">添加 todo</label>
+            <input
+                    v-model="newTodoText"
+                    id="new-todo"
+                    placeholder="例如：明天早上跑步"
+            />
+            <button>添加</button>
+        </form>
+        <ul>
+            <todo-item
+                    v-for="(todo, index) in todos"
+                    :key="todo.id"
+                    :title="todo.title"
+                    @remove="todos.splice(index, 1)"
+            ></todo-item>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                items: [{text: 'Google'}, {text: 'Baidu'}, {text: 'Bing'}],
+                numbers: [1, 2, 3, 4, 5],
+                newTodoText: '',
+                todos: [{id: 1, title: '看电影'}, {id: 2, title: '吃饭'}, {id: 3, title: '上 RUNOOB 学习'}],
+                nextTodoId: 4
+            }
+        },
+        methods: {
+            addNewTodo() {
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText
+                })
+                this.newTodoText = ''
+            }
+        },
+        computed: {
+            evenNumbers() {
+                return this.numbers.filter(number => number % 2 === 0)
+            }
+        }
+    })
+    app.component('todo-item',{
+        template: `<li>
+      {{ title }}
+      <button @click="$emit('remove')">删除</button>
+    </li>`,
+        props: ['title'],
+        emits: ['remove']
+    })
+    app.mount('#app')
+</script>
+</body>
+</html>
